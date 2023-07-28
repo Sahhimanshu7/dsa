@@ -33,16 +33,37 @@ class LinkedList{
             Node* temp = new Node();
             temp -> data = data;
             temp -> next = nullptr;
-            if (head != nullptr)
+            if (head == nullptr)
             {
-                temp -> next = head;
+                head = temp;
+                return;
             }
             Node* current = head;
-            while(current->next == nullptr){
+            while(current->next != nullptr){
                 current = current->next;
             }
             current->next= temp;
-            head = current;
+        }
+
+        void Delete(){
+            if (head == nullptr)
+            {
+                return;
+            }
+            if(head->next == nullptr)
+            {
+                delete head;
+                head = nullptr;
+                return;
+            }
+            
+            Node* current = head;
+            while (current->next != nullptr && current->next->next != nullptr)
+            {
+                current = current->next;
+            }
+            delete current->next;
+            current->next = nullptr;
         }
 
         void Print(){
@@ -68,6 +89,6 @@ int main(){
         std::cin>> data;
         LL.Insert(data);
     }
-    LL.pop_front();
+    LL.Delete();
     LL.Print();
 }
